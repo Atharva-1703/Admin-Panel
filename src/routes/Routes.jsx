@@ -4,6 +4,7 @@ import Login from '../pages/AuthPages/LoginPage';
 import Signup from '../pages/AuthPages/SignUpPage';
 import AddQuestionPage from '../pages/AddQuestionPage';
 import CsvFormPage from '../pages/CsvFormPage';
+import ViewQuestionsPage from '../pages/viewQuestionsPage';
 
 const route = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const route = createBrowserRouter([
     path: '/add-csv',
     element: <CsvFormPage />,
   },
+  {
+    path:'/view-questions',
+    element:<ViewQuestionsPage/>
+  }
 ]);
 
 const Router = () => {

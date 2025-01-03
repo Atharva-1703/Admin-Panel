@@ -100,8 +100,6 @@ function AddQuizData() {
       correctOption: "",
     }));
 
-    alert("Question added successfully!");
-    console.log("Quiz Data:", quizData);
   };
 
   const handleSubmitQuiz = (e) => {
@@ -114,8 +112,7 @@ function AddQuizData() {
     }
 
     // Submit quiz api call here
-    console.log("Submitting quiz data:", quizData);
-    alert("Quiz submitted successfully!");
+    
 
     // reset the form after submission
     setQuizData({

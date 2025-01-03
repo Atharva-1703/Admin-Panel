@@ -10,13 +10,6 @@ function App() {
   return (
     <div >
       <Router/>
-    <BrowserRouter>
-    
-    <Routes>
-      <Route path='/add-manually' element={<AddQuestionPage />} />
-      <Route path='/add-csv' element={<CsvFormPage />} />
-    </Routes>
-    </BrowserRouter>
     </div>
   )
 }
