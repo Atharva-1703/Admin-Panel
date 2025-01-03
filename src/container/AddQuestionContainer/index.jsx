@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import QuestionList from "../displayQuestions";
+import QuestionList from "../../components/custom/displayQuestions";
 
 function AddQuizData() {
   const [isLocked, setIsLocked] = useState(false);
