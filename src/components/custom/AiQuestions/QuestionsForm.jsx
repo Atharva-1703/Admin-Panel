@@ -16,9 +16,9 @@ function QuestionForm({ onGenerateQuestions, loading }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 bg-gray-200 p-4 rounded-lg shadow">
+    <form onSubmit={handleSubmit} className="mb-6 bg-gray-50 p-4 rounded-lg shadow-lg shadow-gray-700">
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Topic</label>
+        <label className="block text-gray-700 font-semibold mb-2"></label>
         <input
           type="text"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
