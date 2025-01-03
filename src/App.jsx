@@ -8,8 +8,9 @@ function App() {
 
 
   return (
-    <div className='bg-slate-500'>
+    <div >
     <BrowserRouter>
+    
     <Routes>
       <Route path='/add-manually' element={<AddQuestionPage />} />
       <Route path='/add-csv' element={<CsvFormPage />} />
