@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AIGeneratedPage from '../pages/AIGeneratedPage/index'; 
 import Login from '../pages/AuthPages/LoginPage';
 import Signup from '../pages/AuthPages/SignUpPage';
+import AddQuestionPage from '../pages/AddQuestionPage';
+import CsvFormPage from '../pages/CsvFormPage';
 
 const route = createBrowserRouter([
   {
@@ -20,6 +22,13 @@ const route = createBrowserRouter([
     path: '/signup',
     element: <Signup />,
   },
+  {
+    path:'/add-manually',
+    element:<AddQuestionPage/>
+  }
+  ,{
+    path:'/add-csv',
+    element:<CsvFormPage/>}
 ]);
 
 const Router = () => {
