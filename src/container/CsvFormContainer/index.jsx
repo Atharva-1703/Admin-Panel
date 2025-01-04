@@ -48,8 +48,8 @@ const CsvUploader = () => {
             <Sidebar />
             
             {/* Form Section */}
-            <div className="flex-1 h-screen flex items-center justify-center bg-yellow-200">
-                <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-2xl">
+            <div className="flex-1 h-screen  p-8 justify-center bg-yellow-200">
+                <div className="bg-white shadow-md rounded-lg p-8 mx-auto w-full max-w-2xl">
                     <h1 className="text-2xl font-semibold text-pink-600 mb-6">
                         Import Questions (CSV Upload)
                     </h1>
