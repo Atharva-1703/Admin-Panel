@@ -4,7 +4,7 @@ import Login from '../pages/AuthPages/LoginPage';
 import Signup from '../pages/AuthPages/SignUpPage';
 import AddQuestionPage from '../pages/AddQuestionPage';
 import CsvFormPage from '../pages/CsvFormPage';
-import ViewQuestionsPage from '../pages/viewQuestionsPage';
+import ViewTopicsPage from '../pages/viewTopicsPage';
 
 const route = createBrowserRouter([
   {
@@ -33,7 +33,7 @@ const route = createBrowserRouter([
   },
   {
     path:'/view-questions',
-    element:<ViewQuestionsPage/>
+    element:<ViewTopicsPage/>
   }
 ]);
 
