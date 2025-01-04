@@ -55,6 +55,7 @@ const CsvUploader = () => {
                     </h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* video url */}
                         <div>
                             <label className="block text-gray-700 font-medium mb-2">
                                 Video URL
@@ -68,7 +69,7 @@ const CsvUploader = () => {
                                 placeholder="Enter Video URL"
                             />
                         </div>
-
+                        {/* topic of question */}
                         <div>
                             <label className="block text-gray-700 font-medium mb-2">Topic</label>
                             <input
@@ -80,7 +81,7 @@ const CsvUploader = () => {
                                 placeholder="Enter Topic"
                             />
                         </div>
-
+                        {/* type of question */}
                         <div>
                             <label className="block text-gray-700 font-medium mb-2">
                                 Question Type
@@ -109,7 +110,8 @@ const CsvUploader = () => {
                                 className="w-full p-2 border rounded"
                             />
                         </div>
-
+                        
+                        {/* get sample file for download */}
                         <a href="/sample_quiz.csv">
                             <button
                                 type="button"

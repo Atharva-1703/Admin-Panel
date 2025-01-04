@@ -22,7 +22,7 @@ const ShowQuestions = ({ questions, onSave }) => {
 
   const handleCorrectOptionChange = (qIndex, oIndex) => {
     const updatedQuestions = [...editedQuestions];
-    updatedQuestions[qIndex].correctOptionsIndex = oIndex;  // Corrected to 'correctOptionsIndex'
+    updatedQuestions[qIndex].correctOptionsIndex = oIndex;  
     setEditedQuestions(updatedQuestions);
   };
 
@@ -42,6 +42,7 @@ const ShowQuestions = ({ questions, onSave }) => {
       <ul className="max-h-80 overflow-y-auto">
         {editedQuestions.map((question, qIndex) => (
           <li key={qIndex} className="mb-6 p-4 border rounded-lg">
+            {/* would run when the question index is assigned to the editing index */}
             {editingIndex === qIndex ? (
               <div>
                 <input
@@ -66,7 +67,7 @@ const ShowQuestions = ({ questions, onSave }) => {
                     <input
                       type="radio"
                       name={`correctOption-${qIndex}`}
-                      checked={question.correctOptionsIndex === oIndex}  // Corrected to 'correctOptionsIndex'
+                      checked={question.correctOptionsIndex === oIndex}  
                       onChange={() =>
                         handleCorrectOptionChange(qIndex, oIndex)
                       }
@@ -92,19 +93,21 @@ const ShowQuestions = ({ questions, onSave }) => {
                 </div>
               </div>
             ) : (
+              // else this part will be executed for just showing the questions
               <div>
                 <h3 className="text-lg font-semibold">{question.question}</h3>
                 <ul>
                   {question.options.map((option, oIndex) => (
                     <li key={oIndex} className="ml-4">
                       {option}{" "}
-                      {oIndex === question.correctOptionsIndex && (  // Corrected to 'correctOptionsIndex'
+                      {oIndex === question.correctOptionsIndex && (  
                         <span className="text-green-500">(Correct)</span>
                       )}
                     </li>
                   ))}
                 </ul>
 
+                  {/* show the question edit form  */}
                 <button
                   onClick={() => handleEditClick(qIndex)}
                   className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
