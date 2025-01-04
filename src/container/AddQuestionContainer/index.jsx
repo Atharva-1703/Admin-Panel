@@ -16,6 +16,7 @@ function AddQuizData() {
     mcqs: 4,
     trueFalse: 2,
     fillInTheBlanks: 4,
+    // could add the size of new types if added
   };
 
   const [currentData, setCurrentData] = useState({

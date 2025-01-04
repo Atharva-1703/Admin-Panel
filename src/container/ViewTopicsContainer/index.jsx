@@ -49,6 +49,7 @@ function ViewTopics() {
             View and Edit Questions
           </h1>
 
+          {/* the form for getting the video id and type of question */}
           <div className="mb-6 grid grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-700 font-medium mb-2">
@@ -85,6 +86,7 @@ function ViewTopics() {
             Search Questions
           </button>
 
+            {/*  display the topics received here */}
           <div className="mt-8">
             {topic && (
               <div>
