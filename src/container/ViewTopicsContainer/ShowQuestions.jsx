@@ -37,9 +37,9 @@ const ShowQuestions = ({ questions, onSave }) => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg">
+    <div className="p-6 bg-white shadow-lg rounded-lg ">
       <h2 className="text-2xl font-semibold mb-6 text-blue-600">Questions</h2>
-      <ul>
+      <ul className="max-h-80 overflow-y-auto">
         {editedQuestions.map((question, qIndex) => (
           <li key={qIndex} className="mb-6 p-4 border rounded-lg">
             {editingIndex === qIndex ? (
