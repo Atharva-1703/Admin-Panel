@@ -18,7 +18,7 @@ const Login = () => {
       const user = userCredential.user;
       
       
-      const userType = user.email.includes('@edu') ? 'Student' : 'Instructor';
+      const userType = user.email ? 'Student' : 'Instructor';
       const userName = user.displayName || 'User';
 
       setUser({ email: user.email, name: userName, userType }); 
