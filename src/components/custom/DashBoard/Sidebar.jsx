@@ -43,7 +43,7 @@ const Sidebar = () => {
                 <ul className="ml-4 mt-2 space-y-1">
                   <li>
                     <Link
-                      to="/AIGeneratedQuestions"
+                      to="/add-manually"
                       className="block py-2 px-4 transition hover:bg-gray-500"
                     >
                       Add Questions
@@ -51,7 +51,7 @@ const Sidebar = () => {
                   </li>
                   <li>
                     <Link
-                      to="/AIGeneratedQuestions"
+                      to="/add-csv"
                       className="block py-2 px-4 transition hover:bg-gray-500"
                     >
                       Add Bulk Questions
@@ -59,7 +59,7 @@ const Sidebar = () => {
                   </li>
                   <li>
                     <Link
-                      to="/AIGeneratedQuestions"
+                      to="/view-questions"
                       className="block py-2 px-4 transition hover:bg-gray-500"
                     >
                       Search, View, and Edit Questions

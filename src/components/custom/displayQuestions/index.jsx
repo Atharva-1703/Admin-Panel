@@ -2,7 +2,7 @@ import React from "react";
 
 function QuestionList({ questions, videoId, topic, type }) {
   return (
-    <div className="w-1/2 p-5 mt-10">
+    <div className="w-1/2 p-5 ">
       <h3 className="text-2xl font-bold mb-6">Quiz Overview</h3>
 
       {/* Quiz Details Section */}

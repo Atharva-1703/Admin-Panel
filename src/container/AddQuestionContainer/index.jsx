@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QuestionList from "../../components/custom/displayQuestions";
+import Sidebar from "../../components/custom/DashBoard/Sidebar";
 
 function AddQuizData() {
   const [isLocked, setIsLocked] = useState(false);
@@ -126,11 +127,13 @@ function AddQuizData() {
   };
 
   return (
-    <div className="flex w-full bg-yellow-200">
-      <div className="w-1/2 p-5 mt-10">
+    <div className="flex h-screen overflow-hidden bg-yellow-200 text-gray-800">
+      <Sidebar />
+    <div className="flex-1 flex w-full bg-yellow-200">
+      <div className="w-1/2 p-5 ">
         <h2 className="text-2xl font-bold mb-4">Add Quiz Data</h2>
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-[80vh] overflow-y-auto "
         >
           {/* Video ID */}
           <div className="mb-4">
@@ -253,6 +256,7 @@ function AddQuizData() {
         </form>
       </div>
       <QuestionList questions={quizData.questions} videoId={quizData.videoId} topic={quizData.topic} type={quizData.type} />
+    </div>
     </div>
   );
 }

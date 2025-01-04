@@ -1,16 +1,16 @@
+import { createContext, useState } from 'react';
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import AddQuestionPage from './pages/AddQuestionPage'
-import CsvFormPage from './pages/CsvFormPage'
 import Router from './routes/Routes'
 
-function App() {
+export const UserContext = createContext();
 
+function App() {
+  const [user, setUser] = useState(null);
 
   return (
-    <div >
-      <Router/>
-    </div>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Router />
+    </UserContext.Provider>
   )
 }
 
