@@ -8,12 +8,15 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!user) navigate('/login');
+  })
+
+  useEffect(() => {
     
     const loginTime = localStorage.getItem('loginTime');
     if (loginTime) {
       const sessionDuration = Date.now() - loginTime;
       if (sessionDuration > 3600000) {
-        
         setUser(null); 
         localStorage.removeItem('loginTime'); 
         navigate('/login'); 

@@ -38,13 +38,13 @@ function ViewTopics() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden ">
+    <div className="flex h-screen overflow-hidden  bg-yellow-200">
       {/* Sidebar Section */}
       <Sidebar />
       
       {/* Content Section */}
-      <div className="min-h-screen flex-1 flex items-center  bg-yellow-200 p-8 overflow-y-auto">
-        <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-8">
+      <div className=" flex-1  justify-center  p-8 overflow-y-auto">
+        <div className="bg-white mx-auto shadow-md rounded-lg w-full  max-w-4xl p-8 h-auto">
           <h1 className="text-2xl font-semibold text-pink-600 mb-6">
             View and Edit Questions
           </h1>

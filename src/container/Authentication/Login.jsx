@@ -26,7 +26,7 @@ const Login = () => {
       
       localStorage.setItem('loginTime', Date.now());
       alert('Login successful');
-      navigate('/dashboard'); 
+      navigate('/'); 
     } catch (error) {
       setError(error.message);
     }

@@ -11,10 +11,7 @@ import ViewTopicsPage from '../pages/viewTopicsPage';
 
 // Routes definition
 const routes = createBrowserRouter([
-  {
-    path: '/',
-    element: <AIGeneratedPage />,
-  },
+  
   {
     path: '/AIGeneratedQuestions',
     element: <AIGeneratedPage />,
@@ -28,7 +25,7 @@ const routes = createBrowserRouter([
     element: <Signup />,
   },
   {
-    path: '/dashboard',
+    path: '/',
     element:<Dashboard/>,
   },
   {
