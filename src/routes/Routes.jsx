@@ -7,7 +7,7 @@ import Dashboard from '../pages/DashboardPage/index';
 import ForgotPassword from '../pages/AuthPages/ForgotPasswordPage';
 import AddQuestionPage from '../pages/AddQuestionPage';
 import CsvFormPage from '../pages/CsvFormPage';
-import ViewQuestionsPage from '../pages/viewQuestionsPage';
+import ViewTopicsPage from '../pages/viewTopicsPage';
 
 // Routes definition
 const routes = createBrowserRouter([
@@ -45,7 +45,7 @@ const routes = createBrowserRouter([
   },
   {
     path:'/view-questions',
-    element:<ViewQuestionsPage/>
+    element:<ViewTopicsPage/>
   }
 ]);
 

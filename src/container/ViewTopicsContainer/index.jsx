@@ -1,43 +1,51 @@
-import React, { useState } from "react";
-import response from  '../../sample.json';
+import React, { useEffect, useState } from "react";
+import response from '../../sample.json';
 import ShowQuestions from "./ShowQuestions";
 
-function ViewQuestions() {
+function ViewTopics() {
   const [videoId, setVideoId] = useState("");
   const [type, setType] = useState("");
-  const [topic,setTopic]=useState("");
+  const [topic, setTopic] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [showQuestions, setShowQuestions] = useState(false);
 
   const handleVideoIdChange = (e) => setVideoId(e.target.value);
-  const handleTypeChange = (e) => setType(e.target.value);  // Updated for type
+  const handleTypeChange = (e) => setType(e.target.value);
 
-  const handleSearch = async () => {
-    // if (!videoId.trim() || !type) {  // Check for selectedType instead of selectedTopic
+  const handleSearch = () => {
+     // if (!videoId.trim() || !type) {  // Check for selectedType instead of selectedTopic
     //   alert("Please enter video ID and select a question type.");
     //   return;
     // }
-    
-    // ? Api Call here
-    const {data}=response;
-    console.log(data.topic);
-    
+    const { data } = response;
     setTopic(data.topic);
-
-    // Simulated API fetch
-   
-    
+    setQuestions(data.questions);
   };
 
+  const handleSaveQuestions = (updatedQuestions) => {
+    setQuestions(updatedQuestions);
+    setShowQuestions(true);
+  };
+
+  useEffect(()=>{console.log(questions);
+  },[questions])
+
+  const toggleAccordion = () => {
+    setShowQuestions(!showQuestions);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-yellow-200">
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl">
         <h1 className="text-2xl font-semibold text-pink-600 mb-6">
-          View Question Topics by Video ID
+          View and Edit Questions
         </h1>
 
         <div className="mb-6 grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700 font-medium mb-2">Video ID</label>
+            <label className="block text-gray-700 font-medium mb-2">
+              Video ID
+            </label>
             <input
               type="text"
               value={videoId}
@@ -70,22 +78,27 @@ function ViewQuestions() {
         </button>
 
         <div className="mt-8">
-          {topic ? (
+          {topic && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Topics</h2>
-              <h3 onClick={ShowQuestions({questions})}>
-                {topic}
-              </h3>
+              <h2
+                onClick={toggleAccordion}
+                className="text-xl font-semibold cursor-pointer mb-4"
+              >
+                {topic} {showQuestions ? "▲" : "▼"}
+              </h2>
+
+              {showQuestions && (
+                <ShowQuestions
+                  questions={questions}
+                  onSave={handleSaveQuestions}
+                />
+              )}
             </div>
-          ) : (
-            <p>No topics found for this Video ID and type.</p>
           )}
         </div>
-
-      
       </div>
     </div>
   );
 }
 
-export default ViewQuestions;
+export default ViewTopics;
