@@ -1,12 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AIGeneratedPage from '../pages/AIGeneratedPage/index'; 
+import { UserProvider } from '../userContex'; 
+import AIGeneratedPage from '../pages/AIGeneratedPage/index';
 import Login from '../pages/AuthPages/LoginPage';
 import Signup from '../pages/AuthPages/SignUpPage';
+import Dashboard from '../pages/DashboardPage/index';
+import ForgotPassword from '../pages/AuthPages/ForgotPasswordPage';
 import AddQuestionPage from '../pages/AddQuestionPage';
 import CsvFormPage from '../pages/CsvFormPage';
 import ViewQuestionsPage from '../pages/viewQuestionsPage';
 
-const route = createBrowserRouter([
+// Routes definition
+const routes = createBrowserRouter([
   {
     path: '/',
     element: <AIGeneratedPage />,
@@ -24,6 +28,14 @@ const route = createBrowserRouter([
     element: <Signup />,
   },
   {
+    path: '/dashboard',
+    element:<Dashboard/>,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword/>,
+  },
+  {
     path: '/add-manually',
     element: <AddQuestionPage />,
   },
@@ -37,11 +49,12 @@ const route = createBrowserRouter([
   }
 ]);
 
+
 const Router = () => {
   return (
-    <div>
-      <RouterProvider router={route} />
-    </div>
+    <UserProvider>
+      <RouterProvider router={routes} />
+    </UserProvider>
   );
 };
 

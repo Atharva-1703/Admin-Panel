@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import Router from './routes/Routes';
 
+export const UserContext = createContext();
+
 const App = () => {
+  const [user, setUser] = useState(null);
+
   return (
-    <div>
-      <Router /> 
-    </div>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Router />
+    </UserContext.Provider>
   );
 };
 
