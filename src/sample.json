@@ -1,0 +1,68 @@
+{
+  "success": true,
+  "data": {
+    "questions": [
+      {
+        "correctOptionsIndex": 0,
+        "options": [
+          "Guido van Rossum",
+          "James Gosling",
+          "Bjarne Stroustrup",
+          "Dennis Ritchie"
+        ],
+        "question": "Who created the Python programming language?"
+      },
+      {
+        "correctOptionsIndex": 0,
+        "options": [
+          "Big Data analysis",
+          "Game development",
+          "Mobile apps creation",
+          "Operating systems"
+        ],
+        "question": "What is a common use of Python in data science?"
+      },
+      {
+        "correctOptionsIndex": 0,
+        "options": [
+          "def",
+          "func",
+          "function ",
+          "define"
+        ],
+        "question": "Which keyword is used to define a function in Python?"
+      },
+      {
+        "correctOptionsIndex": 0,
+        "options": [
+          "Indentation ",
+          "Curly braces ",
+          "Semicolons ",
+          "Brackets "
+        ],
+        "question": "How does Python determine the scope of code blocks? "
+      },
+      {
+        "correctOptionsIndex": 0,
+        "options": [
+          "Multiparadigm ",
+          "Procedural only",
+          "Functional only",
+          "Object-oriented only"
+        ],
+        "question": "What type of programming paradigms can you apply in Python? "
+      },
+      {
+        "correctOptionsIndex": 0,
+        "options": [
+          "TensorFlow ",
+          "ReactJS ",
+          "Django ",
+          "Flask"
+        ],
+        "question": "Which framework is commonly used for deep learning with Python? "
+      }
+    ],
+    "topic": "Python Programming Language"
+  }
+}
