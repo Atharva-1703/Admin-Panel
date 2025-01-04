@@ -17,8 +17,7 @@ const Sidebar = () => {
   return (
     <div className="w-72 h-screen bg-gray-800 text-white font-medium p-4 flex flex-col shadow-lg">
       <div className="mb-8 text-center">
-        <h3 className="text-2xl font-semibold text-gray-200">{user ? user.name : 'Guest'}</h3>
-        <p className="text-sm italic text-gray-400">{user ? user.userType : 'No User'}</p>
+        <p className="text-3xl italic text-gray-400">{user ? user.userType : 'No User'}</p>
       </div>
       <nav className="rounded-sm">
         <ul className="space-y-1">
