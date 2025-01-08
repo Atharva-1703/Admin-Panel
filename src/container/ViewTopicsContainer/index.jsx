@@ -43,11 +43,12 @@ function ViewTopics() {
           },
         }
       );
+      
+      
 
       // Assuming response structure contains topic and questions
       setTopic(response.data.topic);
       setQuestions(response.data.questions || []);
-      setShowQuestions(true);
       
       console.log("API Response:", response.data);
 
@@ -67,6 +68,7 @@ function ViewTopics() {
 
   useEffect(() => {
     console.log(questions);
+    
   }, [questions]);
 
   const toggleAccordion = () => {
