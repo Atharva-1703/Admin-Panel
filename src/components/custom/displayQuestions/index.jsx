@@ -31,7 +31,7 @@ function QuestionList({ questions, videoId, topic, type }) {
                   ))}
                 </ul>
                 <p className="text-green-600 mt-2">
-                  Correct Answer: {q.correctOption}
+                  Correct Answer: {String.fromCharCode(65 + parseInt(q.correctOptionsIndex))}
                 </p>
               </li>
             ))}
@@ -46,8 +46,8 @@ function QuestionList({ questions, videoId, topic, type }) {
 function formatType(type) {
   const types = {
     mcqs: "Multiple Choice Questions",
-    trueFalse: "True/False",
-    fillInTheBlanks: "Fill in the Blanks",
+    // trueFalse: "True/False",
+    // fibs: "Fill in the Blanks",
   };
   return types[type] || type;
 }

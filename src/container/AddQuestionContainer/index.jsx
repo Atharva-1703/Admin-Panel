@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import QuestionList from "../../components/custom/displayQuestions";
 import Sidebar from "../../components/custom/DashBoard/Sidebar";
+import axios from "axios";
 
 function AddQuizData() {
   const [isLocked, setIsLocked] = useState(false);
   const [isFirstQuestionAdded, setIsFirstQuestionAdded] = useState(false);
   const [quizData, setQuizData] = useState({
     videoId: "",
-    type: "", // This will now be selected from a dropdown
+    questionType: "", // This will now be selected from a dropdown
     topic: "",
     questions: [],
   });
@@ -15,22 +16,22 @@ function AddQuizData() {
   const optionSizes = {
     mcqs: 4,
     trueFalse: 2,
-    fillInTheBlanks: 4,
-    // could add the size of new types if added
+    fibs: 4,
+    // could add the size of new questionTypes if added
   };
 
   const [currentData, setCurrentData] = useState({
     question: "",
     options: ["", "", "", ""],
-    correctOption: "", // Now this will hold the correct option (A, B, C, D)
+    correctOptionsIndex: "", // Now this will hold the correct option (A, B, C, D)
   });
 
   const handleQuizChange = (e) => {
     const { name, value } = e.target;
 
-    // Only change the options size if it's the first question 
-    if (name === "type" && !isFirstQuestionAdded) {
-      const newSize = optionSizes[value] || 4; // Default to 4 if type not found
+    // Only change the options size if it's the first question
+    if (name === "questionType" && !isFirstQuestionAdded) {
+      const newSize = optionSizes[value] || 4; // Default to 4 if questionType not found
       setCurrentData((prev) => ({
         ...prev,
         options: Array(newSize).fill(""),
@@ -54,12 +55,12 @@ function AddQuizData() {
   const handleAddQuestion = (e) => {
     e.preventDefault();
 
-    const { videoId, type, topic } = quizData;
-    const { question, options, correctOption } = currentData;
+    const { videoId, questionType, topic } = quizData;
+    const { question, options, correctOptionsIndex } = currentData;
 
     // Validate all inputs
-    if (!videoId.trim() || !type.trim() || !topic.trim()) {
-      alert("Please provide a video ID, type, and topic!");
+    if (!videoId.trim() || !questionType.trim() || !topic.trim()) {
+      alert("Please provide a video ID, questionType, and topic!");
       return;
     }
     if (!question.trim()) {
@@ -70,7 +71,7 @@ function AddQuizData() {
       alert("Please provide all options!");
       return;
     }
-    if (!correctOption.trim()) {
+    if (!correctOptionsIndex.trim()) {
       alert("Please provide the correct answer!");
       return;
     }
@@ -89,22 +90,21 @@ function AddQuizData() {
         {
           question: currentData.question,
           options: currentData.options,
-          correctOption,
+          correctOptionsIndex,
         },
       ],
     }));
 
     // Reset currentData
-    const newSize = optionSizes[quizData.type] || 4;
+    const newSize = optionSizes[quizData.questionType] || 4;
     setCurrentData((prev) => ({
       question: "",
-      options: Array(newSize).fill(""), 
-      correctOption: "",
+      options: Array(newSize).fill(""),
+      correctOptionsIndex: "",
     }));
-
   };
 
-  const handleSubmitQuiz = (e) => {
+  const handleSubmitQuiz =async (e) => {
     e.preventDefault();
 
     // Validate quiz data before submitting
@@ -114,12 +114,34 @@ function AddQuizData() {
     }
 
     // Submit quiz api call here
+    // console.log(quizData);
+    try {
+      const response = await axios.post(
+        "https://backend.gameyoutube.com/questions/custom",
+        quizData,
+        {
+          headers: {
+            "x-api-key": import.meta.env.VITE_API_AUTH_SECRET,
+          },
+        }
+      );
+  
+      // Check the response from the backend
+      console.log("Response:", response.data); // Log the response data if needed
+      
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error("Error submitting quiz:", error);
+  
+      // Optionally, show an error message to the user
+      alert("An error occurred while submitting the quiz. Please try again.");
+    }
     
 
     // reset the form after submission
     setQuizData({
       videoId: "",
-      type: "",
+      questionType: "",
       topic: "",
       questions: [],
     });
@@ -130,134 +152,143 @@ function AddQuizData() {
   return (
     <div className="flex h-screen overflow-hidden bg-yellow-200 text-gray-800">
       <Sidebar />
-    <div className="flex-1 flex w-full bg-yellow-200">
-      <div className="w-1/2 p-5 ">
-        <h2 className="text-2xl font-bold mb-4">Add Quiz Data</h2>
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-[80vh] overflow-y-auto "
-        >
-          {/* Video ID */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Video ID / URL
-            </label>
-            <input
-              type="text"
-              name="videoId"
-              value={quizData.videoId}
-              onChange={handleQuizChange}
-              disabled={isLocked}
-              className={`w-full p-2 border rounded ${isLocked ? "bg-gray-200" : ""}`}
-              placeholder="Enter video ID or URL"
-            />
-          </div>
-
-          {/* Topic */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Topic
-            </label>
-            <input
-              type="text"
-              name="topic"
-              value={quizData.topic}
-              onChange={handleQuizChange}
-              disabled={isLocked}
-              className={`w-full p-2 border rounded ${isLocked ? "bg-gray-200" : ""}`}
-              placeholder="Enter topic (e.g., JavaScript)"
-            />
-          </div>
-
-          {/* Type (Dropdown) */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Type
-            </label>
-            <select
-              name="type"
-              value={quizData.type}
-              onChange={handleQuizChange}
-              disabled={isLocked}
-              className={`w-full p-2 border rounded ${isLocked ? "bg-gray-200" : ""}`}
-            >
-              <option value="">Select Type</option>
-              <option value="mcqs">MCQs</option>
-              <option value="trueFalse">True/False</option>
-              <option value="fillInTheBlanks">Fill in the Blanks</option>
-              {/* Add more types as needed */}
-            </select>
-          </div>
-
-          {/* Question */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Question
-            </label>
-            <textarea
-              name="question"
-              value={currentData.question}
-              onChange={handleQuestionChange}
-              className="w-full p-2 border rounded"
-              placeholder="Enter the question text"
-            />
-          </div>
-
-          {/* Options */}
-          {currentData.options.map((option, index) => (
-            <div className="mb-4" key={index}>
+      <div className="flex-1 flex w-full bg-yellow-200">
+        <div className="w-1/2 p-5 ">
+          <h2 className="text-2xl font-bold mb-4">Add Quiz Data</h2>
+          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-[80vh] overflow-y-auto ">
+            {/* Video ID */}
+            <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Option {index + 1}
+                Video ID / URL
+              </label>
+              <input
+                questionType="text"
+                name="videoId"
+                value={quizData.videoId}
+                onChange={handleQuizChange}
+                disabled={isLocked}
+                className={`w-full p-2 border rounded ${
+                  isLocked ? "bg-gray-200" : ""
+                }`}
+                placeholder="Enter video ID or URL"
+              />
+            </div>
+
+            {/* Topic */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Topic
               </label>
               <input
                 type="text"
-                value={option}
-                onChange={(e) => handleOptionChange(index, e.target.value)}
-                className="w-full p-2 border rounded"
-                placeholder={`Enter option ${index + 1}`}
+                name="topic"
+                value={quizData.topic}
+                onChange={handleQuizChange}
+                disabled={isLocked}
+                className={`w-full p-2 border rounded ${
+                  isLocked ? "bg-gray-200" : ""
+                }`}
+                placeholder="Enter topic (e.g., JavaScript)"
               />
             </div>
-          ))}
 
-          {/* Correct Option (Dropdown A, B, C, D) */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Correct Answer
-            </label>
-            <select
-              name="correctOption"
-              value={currentData.correctOption}
-              onChange={handleQuestionChange}
-              className="w-full p-2 border rounded"
+            {/* questionType (Dropdown) */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                questionType
+              </label>
+              <select
+                name="questionType"
+                value={quizData.questionType}
+                onChange={handleQuizChange}
+                disabled={isLocked}
+                className={`w-full p-2 border rounded ${
+                  isLocked ? "bg-gray-200" : ""
+                }`}
+              >
+                <option value="">Select questionType</option>
+                <option value="mcqs">MCQs</option>
+                {/* <option value="trueFalse">True/False</option>
+              <option value="fibs">Fill in the Blanks</option> 
+              <option value="match" >Match the following</option>*/}
+                {/* Add more questionTypes as needed */}
+              </select>
+            </div>
+
+            {/* Question */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Question
+              </label>
+              <textarea
+                name="question"
+                value={currentData.question}
+                onChange={handleQuestionChange}
+                className="w-full p-2 border rounded"
+                placeholder="Enter the question text"
+              />
+            </div>
+
+            {/* Options */}
+            {currentData.options.map((option, index) => (
+              <div className="mb-4" key={index}>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Option {index + 1}
+                </label>
+                <input
+                  type="text"
+                  value={option}
+                  onChange={(e) => handleOptionChange(index, e.target.value)}
+                  className="w-full p-2 border rounded"
+                  placeholder={`Enter option ${index + 1}`}
+                />
+              </div>
+            ))}
+
+            {/* Correct Option (Dropdown A, B, C, D) */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Correct Answer
+              </label>
+              <select
+                name="correctOptionsIndex"
+                value={currentData.correctOptionsIndex}
+                onChange={handleQuestionChange}
+                className="w-full p-2 border rounded"
+              >
+                <option value="">Select Correct Answer</option>
+                {currentData.options.map((_, index) => {
+                  const optionLabel = String.fromCharCode(65 + index); // A, B, C, D...
+                  return (
+                    <option key={index} value={index}>
+                      {optionLabel}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <button
+              onClick={handleAddQuestion}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2 mt-2"
             >
-              <option value="">Select Correct Answer</option>
-              {currentData.options.map((_, index) => {
-                const optionLabel = String.fromCharCode(65 + index); // A, B, C, D...
-                return (
-                  <option key={index} value={optionLabel}>
-                    {optionLabel}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
-          
-          <button
-            onClick={handleAddQuestion}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2 mt-2"
-          >
-            Add Question
-          </button>
-          <button
+              Add Question
+            </button>
+            <button
               onClick={handleSubmitQuiz}
               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 mt-2"
             >
               Submit Quiz
             </button>
-        </form>
+          </form>
+        </div>
+        <QuestionList
+          questions={quizData.questions}
+          videoId={quizData.videoId}
+          topic={quizData.topic}
+          type={quizData.questionType}
+        />
       </div>
-      <QuestionList questions={quizData.questions} videoId={quizData.videoId} topic={quizData.topic} type={quizData.type} />
-    </div>
     </div>
   );
 }

@@ -4,13 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC4duWjRMGxFg5txQ4u4kqOfu_OMHzyxEQ",
-  authDomain: "elitequize.firebaseapp.com",
-  projectId: "elitequize",
-  storageBucket: "elitequize.firebasestorage.app",
-  messagingSenderId: "331630025276",
-  appId: "1:331630025276:web:616a630b9c896f10f0c139",
-  measurementId: "G-LGP8BT9KS8" 
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 // Initialize Firebase

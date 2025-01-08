@@ -1,27 +1,57 @@
 import React, { useEffect, useState } from "react";
-import response from '../../sample.json';
-import ShowQuestions from "./ShowQuestions";
 import Sidebar from "../../components/custom/DashBoard/Sidebar";
+import axios from "axios";
+import ShowQuestions from "./ShowQuestions";
 
 function ViewTopics() {
-  const [videoId, setVideoId] = useState("");
-  const [type, setType] = useState("");
+  // Single state object for videoId and questionType
+  const [formData, setFormData] = useState({
+    videoId: "",
+    questionType: "",
+  });
+  
   const [topic, setTopic] = useState("");
   const [questions, setQuestions] = useState([]);
   const [showQuestions, setShowQuestions] = useState(false);
 
-  const handleVideoIdChange = (e) => setVideoId(e.target.value);
-  const handleTypeChange = (e) => setType(e.target.value);
+  // Handle changes for both videoId and questionType
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  const handleSearch = () => {
-    if (!videoId.trim() || !type) {
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const { videoId, questionType } = formData;
+
+    if (!videoId.trim() || !questionType.trim()) {
       alert("Please enter Video ID and select a Question Type.");
       return;
     }
+    console.log(formData);
+    
 
-    const { data } = response;
-    setTopic(data.topic);
-    setQuestions(data.questions);
+    try {
+      const response = await axios.post(
+        "https://backend.gameyoutube.com/questions/custom",
+        formData,
+        {
+          headers: {
+            "x-api-key": import.meta.env.VITE_API_AUTH_SECRET,
+          },
+        }
+      );
+      // Process the response here if needed
+      console.log(response);
+      // For example, you could set the topic and questions based on the response
+      // setTopic(response.data.topic);
+      // setQuestions(response.data.questions);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSaveQuestions = (updatedQuestions) => {
@@ -49,7 +79,7 @@ function ViewTopics() {
             View and Edit Questions
           </h1>
 
-          {/* the form for getting the video id and type of question */}
+          {/* Form for getting videoId and questionType */}
           <div className="mb-6 grid grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-700 font-medium mb-2">
@@ -57,8 +87,9 @@ function ViewTopics() {
               </label>
               <input
                 type="text"
-                value={videoId}
-                onChange={handleVideoIdChange}
+                name="videoId"
+                value={formData.videoId}
+                onChange={handleInputChange}
                 className="w-full p-2 border rounded"
                 placeholder="Enter Video ID"
               />
@@ -67,14 +98,14 @@ function ViewTopics() {
             <div>
               <label className="block text-gray-700 font-medium mb-2">Type</label>
               <select
-                value={type}
-                onChange={handleTypeChange}
+                name="questionType"
+                value={formData.questionType}
+                onChange={handleInputChange}
                 className="w-full p-2 border rounded"
               >
                 <option value="">Select Question Type</option>
                 <option value="mcqs">MCQs</option>
-                <option value="trueFalse">True/False</option>
-                <option value="fillInTheBlanks">Fill in the Blanks</option>
+                {/* Add more types as needed */}
               </select>
             </div>
           </div>
@@ -86,7 +117,7 @@ function ViewTopics() {
             Search Questions
           </button>
 
-            {/*  display the topics received here */}
+          {/* Display the topics received here */}
           <div className="mt-8">
             {topic && (
               <div>
