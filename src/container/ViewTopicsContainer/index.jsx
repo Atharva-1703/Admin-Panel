@@ -9,12 +9,11 @@ function ViewTopics() {
     videoId: "",
     questionType: "",
   });
-  
+
   const [topic, setTopic] = useState("");
   const [questions, setQuestions] = useState([]);
   const [showQuestions, setShowQuestions] = useState(false);
 
-  // Handle changes for both videoId and questionType
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,7 +21,7 @@ function ViewTopics() {
       [name]: value,
     }));
   };
-
+  
   const handleSearch = async (e) => {
     e.preventDefault();
     const { videoId, questionType } = formData;
@@ -31,12 +30,12 @@ function ViewTopics() {
       alert("Please enter Video ID and select a Question Type.");
       return;
     }
-    console.log(formData);
+
     
 
     try {
       const response = await axios.post(
-        "https://backend.gameyoutube.com/questions/custom",
+        "https://backend.gameyoutube.com/questions/get-questions",
         formData,
         {
           headers: {
@@ -44,13 +43,20 @@ function ViewTopics() {
           },
         }
       );
-      // Process the response here if needed
-      console.log(response);
-      // For example, you could set the topic and questions based on the response
-      // setTopic(response.data.topic);
-      // setQuestions(response.data.questions);
+
+      // Assuming response structure contains topic and questions
+      setTopic(response.data.topic);
+      setQuestions(response.data.questions || []);
+      setShowQuestions(true);
+      
+      console.log("API Response:", response.data);
+
     } catch (error) {
-      console.log(error);
+      console.error("Error Response:", error.response);
+      alert(
+        error.response?.data?.message || 
+        "Failed to fetch questions. Please check the input and try again."
+      );
     }
   };
 
