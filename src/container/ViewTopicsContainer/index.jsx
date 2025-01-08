@@ -68,7 +68,6 @@ function ViewTopics() {
 
   useEffect(() => {
     console.log(questions);
-    
   }, [questions]);
 
   const toggleAccordion = () => {

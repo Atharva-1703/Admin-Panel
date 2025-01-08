@@ -23,7 +23,7 @@ const Sidebar = () => {
         <ul className="space-y-1">
           <li>
             <Link
-              to="/dashboard"
+              to="/"
               className="block py-2 px-4 transition hover:bg-gray-600"
             >
               Dashboard

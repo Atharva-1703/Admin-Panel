@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const ShowQuestions = ({ questions, onSave }) => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedQuestions, setEditedQuestions] = useState([...questions]);
+  
 
   const handleEditClick = (index) => {
     setEditingIndex(index);
@@ -100,7 +101,7 @@ const ShowQuestions = ({ questions, onSave }) => {
                   {question.options.map((option, oIndex) => (
                     <li key={oIndex} className="ml-4">
                       {option}{" "}
-                      {oIndex === question.correctOptionsIndex && (  
+                      {oIndex === parseInt(question.correctOptionsIndex) && (  
                         <span className="text-green-500">(Correct)</span>
                       )}
                     </li>
