@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from "../../components/custom/DashBoard/Sidebar"; 
+import Sidebar from "../../components/custom/DashBoard/Sidebar";
 import QuestionForm from "../../components/custom/AiQuestions/QuestionsForm";
 import QuestionList from "../../components/custom/AiQuestions/QuestionsList";
 import { generateQuestionsFromAPI } from "../../operations/AiQuestionsAPI/index";
