@@ -2,46 +2,51 @@ import React, { useState } from "react";
 import GenerateButton from "../../Base/GenerateButton/GenerateQuestions";
 
 function QuestionForm({ onGenerateQuestions, loading }) {
-  const [topic, setTopic] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [questionType, setQuestionType] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!topic.trim() || !categoryId.trim() || !questionType.trim()) {
-      alert("Please provide topic, category ID, and question type.");
+    if (!videoUrl.trim() || !questionType.trim()) {
+      alert("Please provide a Video URL and select a Question Type.");
       return;
     }
-    onGenerateQuestions({ topic, categoryId, questionType });
+    onGenerateQuestions({ videoUrl, questionType });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 bg-gray-50 p-4 rounded-lg shadow-lg shadow-gray-700">
+    <form
+      onSubmit={handleSubmit}
+      className="mb-6 bg-gray-50 p-4 rounded-lg shadow-lg shadow-gray-700"
+    >
+      {/* Video URL Field */}
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2"></label>
+        <label
+          htmlFor="videoUrl"
+          className="block text-gray-700 font-semibold mb-2"
+        >
+          Video URL
+        </label>
         <input
           type="text"
+          id="videoUrl"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          placeholder="Enter a topic (e.g., Python Programming)"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Video URL</label>
-        <input
-          type="text"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
+          value={videoUrl}
+          onChange={(e) => setVideoUrl(e.target.value)}
           placeholder="Enter Video URL"
         />
       </div>
+
+      {/* Question Type Dropdown */}
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">
+        <label
+          htmlFor="questionType"
+          className="block text-gray-700 font-semibold mb-2"
+        >
           Question Type
         </label>
         <select
+          id="questionType"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
           value={questionType}
           onChange={(e) => setQuestionType(e.target.value)}
@@ -53,6 +58,8 @@ function QuestionForm({ onGenerateQuestions, loading }) {
           <option value="Normal Questions">Normal Questions</option>
         </select>
       </div>
+
+      {/* Generate Button */}
       <GenerateButton
         disabled={loading}
         className="w-full p-3 bg-yellow-500 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition-all focus:ring-4 focus:ring-yellow-300"
