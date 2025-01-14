@@ -162,7 +162,7 @@ function AddQuizData() {
                 Video ID / URL
               </label>
               <input
-                questionType="text"
+                type="text"
                 name="videoId"
                 value={quizData.videoId}
                 onChange={handleQuizChange}

@@ -5,8 +5,8 @@ import axios from 'axios';
 const CsvUploader = () => {
     const [quizData, setQuizData] = useState({
         videoUrl: "",
-        topic: "",
         questionType: "",
+        topic: "",
         file: null,
     });
 
@@ -17,11 +17,9 @@ const CsvUploader = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        if (file) {
-            setQuizData((prev) => ({ ...prev, file }));
-        } else {
-            alert("No file selected.");
-        }
+       
+        setQuizData((prev) => ({ ...prev, file }));
+        
     };
 
     const handleSubmit = async (e) => {
@@ -34,20 +32,21 @@ const CsvUploader = () => {
             return;
         }
         if (!file) {
-            alert("Please upload a file.");
+            alert("Please upload a CSV file.");
             return;
         }
+       
 
         // Construct FormData
         const formData = new FormData();
         formData.append("videoUrl", videoUrl);
-        formData.append("topic", topic);
         formData.append("questionType", questionType);
+        formData.append("topic", topic);
         formData.append("file", file);
 
         // Debug FormData
         for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
+            console.log(key,":",value);
         }
 
         try {
@@ -63,7 +62,8 @@ const CsvUploader = () => {
             console.log("Upload successful:", response.data);
             alert("Quiz uploaded successfully!");
         } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
+            console.error("Error:",  error.response.data );
+            console.error("Error:",  error.message );
             alert("Failed to upload quiz.");
         }
 
